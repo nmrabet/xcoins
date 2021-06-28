@@ -6,7 +6,7 @@ export default function main() {
     <div className="">
       <h2 className="mt-2 text-center">Logo</h2>
       <div className="container mt-4 border rounded">
-        <div className="row text-center">
+        <div className="mt-4 row text-center">
           <div className="col">Compounding</div>
           <div className="col">
             <FiCheckCircle />
