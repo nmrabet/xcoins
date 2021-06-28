@@ -1,12 +1,14 @@
 import React from "react";
 import { FiCheckCircle } from "react-icons/fi";
 import logo from "../assets/logo-open2be.png";
+import { Tab, Tabs, TabList } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 export default function main() {
   return (
     <div className="">
       <div className="mt-4 text-center">
-          <img src={logo} alt="open2be" />
+        <img src={logo} alt="open2be" />
       </div>
       <div className="container mt-4 border rounded">
         <div className="mt-4 row text-center">
@@ -34,26 +36,29 @@ export default function main() {
           </div>
           <div className="mt-4 border-top"></div>
           <div className="p-3 mx-auto d-flex justify-content-between align-items-baseline w-75">
-            <ul className="nav d-flex flex-row align-items-baseline">
-                <li className="nav-item">
-                    <a href="tab" className="nav-link">Deposit</a>
-                </li>
-                <li> | </li>
-                <li className="nav-item">
-                    <a href="tab" className="nav-link">Withdraw</a>
-                </li>
-            </ul>
+            <Tabs>
+              <TabList className="d-flex justify-content-between align-items-baseline">
+                <Tab>DEPOSIT</Tab>
+                <div> | </div>
+                <Tab>WITHDRAW</Tab>
+              </TabList>
+            </Tabs>
             <p>0.5% fee for withdrawals within 3 days</p>
           </div>
-          <input type="text" name="" id="" className="rounded-pill w-75 mx-auto" />
+          <input
+            type="text"
+            name=""
+            id=""
+            className="rounded-pill w-75 mx-auto"
+          />
           <p>WALLET BALANCE: 0.000 Xcoins</p>
         </div>
-          <div className="mt-4 border-top"></div>
-          <div className="text-center mt-3 mb-3">
-              <h5>YOUR BALANCE</h5>
-              <h2>$</h2>
-              <button className="rounded-pill">Connect</button>
-          </div>
+        <div className="mt-4 border-top"></div>
+        <div className="text-center mt-3 mb-3">
+          <h5>YOUR BALANCE</h5>
+          <h2>$</h2>
+          <button className="rounded-pill">Connect</button>
+        </div>
       </div>
     </div>
   );
