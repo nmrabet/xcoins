@@ -36,11 +36,11 @@ export default function main() {
           <div className="p-3 mx-auto d-flex justify-content-between align-items-baseline w-75">
             <ul className="nav d-flex flex-row align-items-baseline">
                 <li className="nav-item">
-                    <a href="#" className="nav-link">Deposit</a>
+                    <a href="tab" className="nav-link">Deposit</a>
                 </li>
                 <li> | </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link">Withdraw</a>
+                    <a href="tab" className="nav-link">Withdraw</a>
                 </li>
             </ul>
             <p>0.5% fee for withdrawals within 3 days</p>
