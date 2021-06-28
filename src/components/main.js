@@ -1,10 +1,13 @@
 import React from "react";
 import { FiCheckCircle } from "react-icons/fi";
+import logo from "../assets/logo-open2be.png";
 
 export default function main() {
   return (
     <div className="">
-      <h2 className="mt-2 text-center">Logo</h2>
+      <div className="mt-4 text-center">
+          <img src={logo} alt="open2be" />
+      </div>
       <div className="container mt-4 border rounded">
         <div className="mt-4 row text-center">
           <div className="col">Compounding</div>
@@ -31,7 +34,15 @@ export default function main() {
           </div>
           <div className="mt-4 border-top"></div>
           <div className="p-3 mx-auto d-flex justify-content-between align-items-baseline w-75">
-            <h4>Deposit | Withdraw</h4>
+            <ul className="nav d-flex flex-row align-items-baseline">
+                <li className="nav-item">
+                    <a href="#" className="nav-link">Deposit</a>
+                </li>
+                <li> | </li>
+                <li className="nav-item">
+                    <a href="#" className="nav-link">Withdraw</a>
+                </li>
+            </ul>
             <p>0.5% fee for withdrawals within 3 days</p>
           </div>
           <input type="text" name="" id="" className="rounded-pill w-75 mx-auto" />
