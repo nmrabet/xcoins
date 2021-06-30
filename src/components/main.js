@@ -1,15 +1,11 @@
 import React from "react";
 import { FiCheckCircle } from "react-icons/fi";
-import logo from "../assets/logo-open2be.png";
 import { Tab, Tabs, TabList } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 export default function main() {
   return (
     <div className="">
-      <div className="mt-4 text-center">
-        <img src={logo} alt="open2be" />
-      </div>
       <div className="container mt-4 border rounded">
         <div className="mt-4 row text-center">
           <div className="col">Compounding</div>
@@ -38,9 +34,9 @@ export default function main() {
           <div className="p-3 mx-auto d-flex justify-content-between align-items-baseline w-75">
             <Tabs>
               <TabList className="d-flex justify-content-between align-items-baseline">
-                <Tab>DEPOSIT</Tab>
+                <Tab>Deposit</Tab>
                 <div> | </div>
-                <Tab>WITHDRAW</Tab>
+                <Tab>Withdraw</Tab>
               </TabList>
             </Tabs>
             <p>0.5% fee for withdrawals within 3 days</p>
@@ -57,7 +53,9 @@ export default function main() {
         <div className="text-center mt-3 mb-3">
           <h5>YOUR BALANCE</h5>
           <h2>$</h2>
-          <button className="rounded-pill">Connect</button>
+          <button className="rounded-pill">
+            Connect
+          </button>
         </div>
       </div>
     </div>
