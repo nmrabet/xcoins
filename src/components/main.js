@@ -3,7 +3,7 @@ import { FiCheckCircle } from "react-icons/fi";
 import { Tab, Tabs, TabList } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-export default function main() {
+export default function Main() {
   return (
     <div className="">
       <div className="container mt-4 border rounded">
