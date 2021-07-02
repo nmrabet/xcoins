@@ -1,6 +1,6 @@
 import React from "react";
 import { FiCheckCircle } from "react-icons/fi";
-import { Tab, Tabs, TabList } from "react-tabs";
+import { Tab, Tabs, TabPanel, TabList } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 export default function Main() {
@@ -38,6 +38,12 @@ export default function Main() {
                 <div> | </div>
                 <Tab>Withdraw</Tab>
               </TabList>
+              <TabPanel>
+                <h2>Any content 1</h2>
+              </TabPanel>
+              <TabPanel>
+                <h2>Any content 2</h2>
+              </TabPanel>
             </Tabs>
             <p>0.5% fee for withdrawals within 3 days</p>
           </div>
@@ -53,9 +59,7 @@ export default function Main() {
         <div className="text-center mt-3 mb-3">
           <h5>YOUR BALANCE</h5>
           <h2>$</h2>
-          <button className="rounded-pill">
-            Connect
-          </button>
+          <button className="rounded-pill">Connect</button>
         </div>
       </div>
     </div>
