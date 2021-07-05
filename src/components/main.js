@@ -35,7 +35,7 @@ export default function Main() {
 
   function handleDeposit() {
     const web3 = new Web3(window.web3.currentProvider);
-    let amount = web3.utils.toWei("1", "ether");
+    let amount = web3.utils.toWei(deposit, "ether");
     const contractEpToken = new web3.eth.Contract(
       ABIepToken,
       epTokenContractAddress
@@ -55,13 +55,34 @@ export default function Main() {
 
   function handleWithdraw() {
     const web3 = new Web3(window.web3.currentProvider);
-    let amount = web3.utils.toWei("1", "ether");
+    let amount = web3.utils.toWei(withdraw, "ether");
     const contract = new web3.eth.Contract(ABI, contractAddress);
     contract.methods
       .withdraw(0, amount, false)
       .send({ from: account })
       .then((withdrawResult) => console.log(withdrawResult));
   }
+
+  function handleClaim() {
+    const web3 = new Web3(window.web3.currentProvider);
+    const contract = new web3.eth.Contract(ABI, contractAddress);
+    contract.methods
+      .claim(deposit)
+      .call()
+      .then((claimResult) => console.log(claimResult));
+  }
+
+  function handleProfit() {
+    const web3 = new Web3(window.web3.currentProvider);
+    let profit = web3.utils.toWei(deposit, "ether");
+    const contract = new web3.eth.Contract(ABI, contractAddress);
+    contract.methods
+      .userInfo(profit)
+      .call()
+      .then((profitResult) => console.log(profitResult));
+  }
+
+  
 
   return (
     <div className="">
@@ -96,12 +117,14 @@ export default function Main() {
           <div className="col">Profit</div>
           <div className="col">0.000 Xcoins</div>
           <div className="col">
-            <button className="px-3 border rounded-pill">Claim</button>
+            <button className="px-3 border rounded-pill" onClick={handleClaim}>
+              Claim
+            </button>
           </div>
           <div className="mt-4 border-top"></div>
           <div className="p-3 mx-auto w-75">
             <Tabs>
-              <TabList className="d-flex justify-content-between align-items-baseline">
+              <TabList className="d-flex justify-content-center align-items-baseline">
                 <Tab>Deposit</Tab>
                 <div> | </div>
                 <Tab>Withdraw</Tab>
