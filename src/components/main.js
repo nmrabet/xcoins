@@ -3,7 +3,12 @@ import { FiCheckCircle } from "react-icons/fi";
 import { Tab, Tabs, TabPanel, TabList } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import logo from "../assets/logo-open2be.png";
-import { ABI, contractAddress } from "../ABI/ABI";
+import {
+  ABI,
+  ABIepToken,
+  contractAddress,
+  epTokenContractAddress,
+} from "../ABI/ABI";
 import Web3 from "web3";
 
 export default function Main() {
@@ -20,12 +25,32 @@ export default function Main() {
 
   function handleDeposit() {
     const web3 = new Web3(window.web3.currentProvider);
+    let amount = web3.utils.toWei("1", "ether");
+    const contractEpToken = new web3.eth.Contract(
+      ABIepToken,
+      epTokenContractAddress
+    );
+    contractEpToken.methods
+      .approve(contractAddress, amount)
+      .send({ from: account })
+      .then((result) => {
+        const contract = new web3.eth.Contract(ABI, contractAddress);
+        contract.methods
+          .deposit(1, amount, false)
+          .send({ from: account })
+          .then((depositResult) => console.log(depositResult));
+        console.log(contract);
+      });
+  }
+
+  function handleWithdraw() {
+    const web3 = new Web3(window.web3.currentProvider);
+    let amount = web3.utils.toWei("1", "ether");
     const contract = new web3.eth.Contract(ABI, contractAddress);
-    // contract.methods
-    //   ._xcoinPerBlock()
-    //   .call()
-    //   .then((result) => console.log(result));
-    console.log(contract);
+    contract.methods
+      .withdraw(0, amount, false)
+      .send({ from: account })
+      .then((withdrawResult) => console.log(withdrawResult));
   }
 
   return (
@@ -97,8 +122,15 @@ export default function Main() {
         <div className="text-center mt-3 mb-3">
           <h5>YOUR BALANCE</h5>
           <h2>$</h2>
-          <button className="rounded-pill">Connect</button>
-          <button onClick={handleDeposit}> Withdraw </button>
+          <button className="rounded-pill" onClick={handleDeposit}>
+            Deposit
+          </button>
+          <button className="rounded-pill" onClick={handleWithdraw}>
+            Withdraw
+          </button>
+          <button className="rounded-pill" onClick={connect}>
+            Connect
+          </button>
         </div>
       </div>
     </div>
