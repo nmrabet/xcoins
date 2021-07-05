@@ -39,21 +39,26 @@ export default function Main() {
                 <Tab>Withdraw</Tab>
               </TabList>
               <TabPanel>
-                <h2>Any content 1</h2>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  className="rounded-pill w-100"
+                />
+                <p>WALLET BALANCE: 0.000 Xcoins</p>
               </TabPanel>
               <TabPanel>
-                <h2>Any content 2</h2>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  className="rounded-pill w-100"        
+                />
+                <p>WALLET BALANCE: 0.000 Xcoins</p>
               </TabPanel>
             </Tabs>
             <p>0.5% fee for withdrawals within 3 days</p>
           </div>
-          <input
-            type="text"
-            name=""
-            id=""
-            className="rounded-pill w-75 mx-auto"
-          />
-          <p>WALLET BALANCE: 0.000 Xcoins</p>
         </div>
         <div className="mt-4 border-top"></div>
         <div className="text-center mt-3 mb-3">

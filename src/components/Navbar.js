@@ -17,7 +17,7 @@ export default function Navbar() {
     <div className="mt-4 mx-auto d-flex justify-content-between align-items-center w-75">
       <img src={logo} alt="" />
       <button
-        className="rounded-pill px-4 py-2 bg-primary text-white"
+        className="rounded-pill px-4 py-2 bg-primary text-white shadow-none"
         onClick={connect}
       >
         {account.length > 0 ? account : "Connect" }
