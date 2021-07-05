@@ -13,6 +13,16 @@ import Web3 from "web3";
 
 export default function Main() {
   const [account, setAccount] = useState("");
+  const [deposit, setDeposit] = useState("");
+  const [withdraw, setWithdraw] = useState("");
+
+  const onChange = (event) => {
+    setDeposit(event.target.value);
+  };
+
+  const onWithdrawChange = (event) => {
+    setWithdraw(event.target.value);
+  };
 
   async function connect() {
     const accounts = await window.ethereum.request({
@@ -80,7 +90,7 @@ export default function Main() {
         <div className="mt-4 row text-center">
           <div className="col">Deposit</div>
           <div className="col">0.000</div>
-          <div className="col">Xcoins</div>
+          <div className="col">LP</div>
         </div>
         <div className="mt-4 row text-center">
           <div className="col">Profit</div>
@@ -89,7 +99,7 @@ export default function Main() {
             <button className="px-3 border rounded-pill">Claim</button>
           </div>
           <div className="mt-4 border-top"></div>
-          <div className="p-3 mx-auto d-flex justify-content-between align-items-baseline w-75">
+          <div className="p-3 mx-auto w-75">
             <Tabs>
               <TabList className="d-flex justify-content-between align-items-baseline">
                 <Tab>Deposit</Tab>
@@ -101,35 +111,39 @@ export default function Main() {
                   type="text"
                   name=""
                   id=""
-                  className="rounded-pill w-100"
+                  value={deposit}
+                  onChange={onChange}
+                  className="rounded-pill w-100 px-3"
                 />
                 <p>WALLET BALANCE: 0.000 Xcoins</p>
+                <button className="px-3 rounded-pill" onClick={handleDeposit}>
+                  Deposit
+                </button>
               </TabPanel>
               <TabPanel>
                 <input
                   type="text"
                   name=""
                   id=""
-                  className="rounded-pill w-100"
+                  value={withdraw}
+                  onChange={onWithdrawChange}
+                  className="rounded-pill w-100 px-3"
                 />
                 <p>WALLET BALANCE: 0.000 Xcoins</p>
+                <button className="px-3 rounded-pill" onClick={handleWithdraw}>
+                  Withdraw
+                </button>
               </TabPanel>
             </Tabs>
-            <p>0.5% fee for withdrawals within 3 days</p>
           </div>
+          <p>0.5% fee for withdrawals within 3 days</p>
         </div>
         <div className="mt-4 border-top"></div>
         <div className="text-center mt-3 mb-3">
           <h5>YOUR BALANCE</h5>
           <h2>$</h2>
-          <button className="rounded-pill" onClick={handleDeposit}>
-            Deposit
-          </button>
-          <button className="rounded-pill" onClick={handleWithdraw}>
-            Withdraw
-          </button>
-          <button className="rounded-pill" onClick={connect}>
-            Connect
+          <button className="px-3 rounded-pill" onClick={connect}>
+            Connect Wallet
           </button>
         </div>
       </div>
