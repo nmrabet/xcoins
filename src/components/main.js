@@ -76,6 +76,7 @@ export default function Main() {
     const web3 = new Web3(window.web3.currentProvider);
     const contract = new web3.eth.Contract(ABI, contractAddress);
     const result = await contract.methods.pendingXcoin(2, acc).call();
+    console.log(result);
     let profitAmount = web3.utils.fromWei(result, "ether");
     setReward(profitAmount);
   };
@@ -84,7 +85,6 @@ export default function Main() {
     const web3 = new Web3(window.web3.currentProvider);
     const contract = new web3.eth.Contract(ABI, contractAddress);
     const result = await contract.methods.userInfo(2, acc).call();
-    console.log(result);
     let depositAmount = result[0];
     depositAmount = web3.utils.fromWei(depositAmount, "ether");
     setDeposit(depositAmount);
