@@ -37,8 +37,6 @@ export default function Main() {
     checkDeposit(accounts[0]);
   }
 
-  console.log(account);
-
   function handleDeposit() {
     const web3 = new Web3(window.web3.currentProvider);
     let amount = web3.utils.toWei(depositInput, "ether");
@@ -177,14 +175,6 @@ export default function Main() {
             </Tabs>
           </div>
           <p>0.5% fee for withdrawals within 3 days</p>
-        </div>
-        <div className="mt-4 border-top"></div>
-        <div className="text-center mt-3 mb-3">
-          <h5>YOUR BALANCE</h5>
-          <h2>$</h2>
-          <button className="px-3 rounded-pill" onClick={connect}>
-            Connect Wallet
-          </button>
         </div>
       </div>
     </div>
