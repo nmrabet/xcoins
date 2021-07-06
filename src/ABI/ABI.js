@@ -1,6 +1,6 @@
 export const contractAddress = "0xfBbABe155Cb19b1484E07661A24ca9Db8C640ad4";
 export const epTokenContractAddress =
-  "0xd30644CfDfe2453fD05b9E8e799d9FF748FC7a95";
+  "0x3B73452644077110B9ff91A6eE873fa6dF434136";
 
 export const ABI = [
   {

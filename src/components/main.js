@@ -15,6 +15,7 @@ export default function Main() {
   const [account, setAccount] = useState("");
   const [deposit, setDeposit] = useState("");
   const [withdraw, setWithdraw] = useState("");
+  const [reward, setReward] = useState("");
 
   const onChange = (event) => {
     setDeposit(event.target.value);
@@ -29,6 +30,7 @@ export default function Main() {
       method: "eth_requestAccounts",
     });
     setAccount(accounts[0]);
+    checkProfit(accounts[0]);
   }
 
   console.log(account);
@@ -46,7 +48,7 @@ export default function Main() {
       .then((result) => {
         const contract = new web3.eth.Contract(ABI, contractAddress);
         contract.methods
-          .deposit(1, amount, false)
+          .deposit(2, amount, false)
           .send({ from: account })
           .then((depositResult) => console.log(depositResult));
         console.log(contract);
@@ -67,22 +69,17 @@ export default function Main() {
     const web3 = new Web3(window.web3.currentProvider);
     const contract = new web3.eth.Contract(ABI, contractAddress);
     contract.methods
-      .claim(deposit)
-      .call()
+      .claim(1)
+      .send({ from: account })
       .then((claimResult) => console.log(claimResult));
   }
 
-  function handleProfit() {
+  const checkProfit = async (acc) => {
     const web3 = new Web3(window.web3.currentProvider);
-    let profit = web3.utils.toWei(deposit, "ether");
     const contract = new web3.eth.Contract(ABI, contractAddress);
-    contract.methods
-      .userInfo(profit)
-      .call()
-      .then((profitResult) => console.log(profitResult));
-  }
-
-  
+    const result = await contract.methods.pendingXcoin(2, acc).call();
+    setReward(result);
+  };
 
   return (
     <div className="">
@@ -115,7 +112,7 @@ export default function Main() {
         </div>
         <div className="mt-4 row text-center">
           <div className="col">Profit</div>
-          <div className="col">0.000 Xcoins</div>
+          <div className="col">{reward} Xcoins</div>
           <div className="col">
             <button className="px-3 border rounded-pill" onClick={handleClaim}>
               Claim
