@@ -6,23 +6,26 @@ import logo from "../assets/logo-open2be.png";
 import {
   ABI,
   ABIepToken,
+  xCoinABI,
   contractAddress,
   epTokenContractAddress,
+  xCoinContract,
 } from "../ABI/ABI";
 import Web3 from "web3";
 
 export default function Main() {
   const [account, setAccount] = useState("");
-  const [deposit, setDeposit] = useState("");
-  const [withdraw, setWithdraw] = useState("");
+  const [depositInput, setDepositInput] = useState("");
+  const [withdrawInput, setWitdhrawInput] = useState("");
   const [reward, setReward] = useState("");
+  const [deposit, setDeposit] = useState("");
 
   const onChange = (event) => {
-    setDeposit(event.target.value);
+    setDepositInput(event.target.value);
   };
 
   const onWithdrawChange = (event) => {
-    setWithdraw(event.target.value);
+    setWitdhrawInput(event.target.value);
   };
 
   async function connect() {
@@ -31,13 +34,14 @@ export default function Main() {
     });
     setAccount(accounts[0]);
     checkProfit(accounts[0]);
+    checkDeposit(accounts[0]);
   }
 
   console.log(account);
 
   function handleDeposit() {
     const web3 = new Web3(window.web3.currentProvider);
-    let amount = web3.utils.toWei(deposit, "ether");
+    let amount = web3.utils.toWei(depositInput, "ether");
     const contractEpToken = new web3.eth.Contract(
       ABIepToken,
       epTokenContractAddress
@@ -51,35 +55,51 @@ export default function Main() {
           .deposit(2, amount, false)
           .send({ from: account })
           .then((depositResult) => console.log(depositResult));
-        console.log(contract);
       });
   }
 
   function handleWithdraw() {
     const web3 = new Web3(window.web3.currentProvider);
-    let amount = web3.utils.toWei(withdraw, "ether");
+    let amount = web3.utils.toWei(withdrawInput, "ether");
+    const contractXCoin = new web3.eth.Contract(xCoinABI, xCoinContract);
     const contract = new web3.eth.Contract(ABI, contractAddress);
-    contract.methods
-      .withdraw(0, amount, false)
-      .send({ from: account })
-      .then((withdrawResult) => console.log(withdrawResult));
-  }
-
-  function handleClaim() {
-    const web3 = new Web3(window.web3.currentProvider);
-    const contract = new web3.eth.Contract(ABI, contractAddress);
-    contract.methods
-      .claim(1)
-      .send({ from: account })
-      .then((claimResult) => console.log(claimResult));
+    const result = contract.methods.userInfo(2, account).call();
+    console.log(result);
+    let pendingRewards = result[2];
+    contractXCoin.methods.transfer(pendingRewards, account).then((result) => {
+      contractAddress.methods
+        .withdraw(2, amount, false)
+        .send({ from: account })
+        .then((withdrawResult) => console.log(withdrawResult));
+    });
   }
 
   const checkProfit = async (acc) => {
     const web3 = new Web3(window.web3.currentProvider);
     const contract = new web3.eth.Contract(ABI, contractAddress);
     const result = await contract.methods.pendingXcoin(2, acc).call();
-    setReward(result);
+    let profitAmount = web3.utils.fromWei(result, "ether");
+    setReward(profitAmount);
   };
+
+  const checkDeposit = async (acc) => {
+    const web3 = new Web3(window.web3.currentProvider);
+    const contract = new web3.eth.Contract(ABI, contractAddress);
+    const result = await contract.methods.userInfo(2, acc).call();
+    console.log(result);
+    let depositAmount = result[0];
+    depositAmount = web3.utils.fromWei(depositAmount, "ether");
+    setDeposit(depositAmount);
+  };
+
+  function handleClaim() {
+    const web3 = new Web3(window.web3.currentProvider);
+    const contract = new web3.eth.Contract(ABI, contractAddress);
+    contract.methods
+      .claim(2)
+      .send({ from: account })
+      .then((claimResult) => console.log(claimResult));
+  }
 
   return (
     <div className="">
@@ -107,7 +127,7 @@ export default function Main() {
         </div>
         <div className="mt-4 row text-center">
           <div className="col">Deposit</div>
-          <div className="col">0.000</div>
+          <div className="col">{deposit}</div>
           <div className="col">LP</div>
         </div>
         <div className="mt-4 row text-center">
@@ -131,7 +151,7 @@ export default function Main() {
                   type="text"
                   name=""
                   id=""
-                  value={deposit}
+                  value={depositInput}
                   onChange={onChange}
                   className="rounded-pill w-100 px-3"
                 />
@@ -145,7 +165,7 @@ export default function Main() {
                   type="text"
                   name=""
                   id=""
-                  value={withdraw}
+                  value={withdrawInput}
                   onChange={onWithdrawChange}
                   className="rounded-pill w-100 px-3"
                 />
